@@ -39,7 +39,7 @@ func main() {
 	wt.windowChanged([]string{"", ""})
 
 	sigChan := make(chan os.Signal, 1)
-	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM, syscall.SIGABRT)
+	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM, syscall.SIGABRT, syscall.SIGINT)
 	<-sigChan
 	for idx := range wt.engines {
 		wt.engines[idx].Close()
