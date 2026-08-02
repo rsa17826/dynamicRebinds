@@ -43,8 +43,8 @@ func main() {
 	<-sigChan
 	for idx := range wt.engines {
 		wt.engines[idx].Close()
-		os.Exit(0)
 	}
+	os.Exit(0)
 }
 
 type WindowTracker struct {
