@@ -6,6 +6,7 @@ import (
 	"net"
 	"os"
 	"os/signal"
+	"strconv"
 	"strings"
 	"sync"
 	"syscall"
@@ -17,27 +18,33 @@ func main() {
 	wt := WindowTracker{}
 	wt.engines = append(wt.engines, keyModifierLib.NewEngine())
 	wt.engines = append(wt.engines, keyModifierLib.NewEngine())
-	if err := wt.engines[0].Connect("key modifier"); err != nil {
-		panic(err)
+	for idx := range wt.engines {
+		if err := wt.engines[idx].Connect("key modifier" + strconv.Itoa(idx)); err != nil {
+			panic(err)
+		}
+
+		// Start the event loop once. It reads whatever mods are currently
+		// active via SetMods and keeps running for the engine's whole
+		// lifetime; window-focus changes never start a second competing loop,
+		// they just call SetMods.
+		wt.engines[idx].EnsureRunning(func(err error) {
+			if err != nil {
+				fmt.Fprintln(os.Stderr, "engine stopped:", idx, err)
+			}
+		})
 	}
 
-	// Start the event loop once. It reads whatever mods are currently
-	// active via SetMods and keeps running for the engine's whole
-	// lifetime; window-focus changes never start a second competing loop,
-	// they just call SetMods.
-	wt.engines[0].EnsureRunning(func(err error) {
-		if err != nil {
-			fmt.Fprintln(os.Stderr, "engine stopped:", err)
-		}
-	})
-
 	go wt.listenToHyprland()
+	// start ruleless ones
+	wt.windowChanged([]string{"", ""})
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM, syscall.SIGABRT)
 	<-sigChan
-	wt.engines[0].Close()
-	os.Exit(0)
+	for idx := range wt.engines {
+		wt.engines[idx].Close()
+		os.Exit(0)
+	}
 }
 
 type WindowTracker struct {
@@ -100,18 +107,22 @@ func (wt *WindowTracker) listenToHyprland() {
 // window is now focused. Matching windows get their turbo modifier
 // activated; anything else clears mods so keys pass through unmodified.
 func (wt *WindowTracker) windowChanged(window []string) {
+	// class:=window[0]
+	title := window[1]
+	// fmt.Printf("Window length: %d, Content: %v\n", len(window), window[1])
+
 	if len(window) == 0 {
 		return
 	}
 
-	if strings.HasPrefix(window[0], "Math Quest") {
+	if strings.Contains(title, "http://127.0.0.1:1533/MathQuest/play.html") {
 		wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs([]string{
 			"--modify", "d", "turbo", "downfor", "1ms", "delay", "1ms",
 		}))
 	} else {
-		// Condition unmet: stop modifying (releases any held/turbo'd keys).
 		wt.engines[0].SetMods(nil)
 	}
+
 	wt.engines[1].SetMods(keyModifierLib.ParseModifyArgs([]string{
 		"--modify", "5", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "bs",
 		"--modify", "6", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "del",
