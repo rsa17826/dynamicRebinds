@@ -16,10 +16,11 @@ import (
 
 func main() {
 	wt := WindowTracker{}
-	wt.engines = append(wt.engines, keyModifierLib.NewEngine())
-	wt.engines = append(wt.engines, keyModifierLib.NewEngine())
+	for range 2 {
+		wt.engines = append(wt.engines, keyModifierLib.NewEngine())
+	}
 	for idx := range wt.engines {
-		if err := wt.engines[idx].Connect("key modifier" + strconv.Itoa(idx)); err != nil {
+		if err := wt.engines[idx].Connect("dynamic key modifier" + strconv.Itoa(idx)); err != nil {
 			panic(err)
 		}
 
