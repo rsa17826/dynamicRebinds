@@ -22,12 +22,12 @@ func (wt *WindowTracker) windowChanged(window []string) {
 	// 	wt.engines[0].SetMods(nil)
 	// }
 
-	wt.engines[1].SetMods(keyModifierLib.ParseModifyArgs([]string{
+	wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs([]string{
 		"--modify", "5", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "bs",
 		"--modify", "6", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "del",
 		"--modify", "4", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "browserforward",
 		"--modify", "7", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "browserback",
 		"--modify", "0", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "combo", "takeover", "<ctrl", "w",
-		"--modify", "-", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "combo", "takeover", "<ctrl", "r",
+		"--modify", "kpsub", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "combo", "takeover", "<ctrl", "r",
 	}))
 }

@@ -16,7 +16,7 @@ import (
 
 func main() {
 	wt := WindowTracker{}
-	for range 2 {
+	for range 1 {
 		wt.engines = append(wt.engines, keyModifierLib.NewEngine())
 	}
 	for idx := range wt.engines {
