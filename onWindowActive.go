@@ -28,5 +28,6 @@ func (wt *WindowTracker) windowChanged(window []string) {
 		"--modify", "4", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "browserforward",
 		"--modify", "7", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "browserback",
 		"--modify", "0", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "combo", "takeover", "<ctrl", "w",
+		"--modify", "-", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "combo", "takeover", "<ctrl", "r",
 	}))
 }

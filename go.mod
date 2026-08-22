@@ -2,7 +2,7 @@ module github.com/rsa17826/dynamicRebinds
 
 go 1.26.5
 
-require github.com/rsa17826/key-modifier v0.0.50
+require github.com/rsa17826/key-modifier v0.0.55
 
 require (
 	github.com/rsa17826/go-arg-lib v0.0.69 // indirect
