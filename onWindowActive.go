@@ -4,24 +4,6 @@ import (
 	keyModifierLib "github.com/rsa17826/key-modifier/lib"
 )
 
-func getRules(i int) []string {
-	rules := [][]string{
-		{
-			"--modify", "5", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "bs",
-			"--modify", "6", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "del",
-			"--modify", "4", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "browserforward",
-			"--modify", "7", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "browserback",
-			"--modify", "0", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "combo", "takeover", "<ctrl", "w",
-			"--modify", "kpsub", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "combo", "takeover", "<ctrl", "r",
-		},
-	}
-
-	if int(i) >= len(rules) {
-		return nil // Return nil or handle out-of-bounds index
-	}
-
-	return rules[i]
-}
 func (wt *WindowTracker) windowChanged(window []string) {
 	class := window[0]
 	title := window[1]
@@ -41,4 +23,23 @@ func (wt *WindowTracker) windowChanged(window []string) {
 	// }
 
 	wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs(getRules(0)))
+}
+
+func getRules(i int) []string {
+	rules := [][]string{
+		{
+			"--modify", "5", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "bs",
+			"--modify", "6", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "del",
+			"--modify", "4", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "browserforward",
+			"--modify", "7", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "browserback",
+			"--modify", "0", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "combo", "takeover", "<ctrl", "w",
+			"--modify", "kpsub", "from", "id:usb-04d9_USB_Gaming_Mouse-if01-event-kbd", "replace", "combo", "takeover", "<ctrl", "r",
+		},
+	}
+
+	if int(i) >= len(rules) {
+		return nil // Return nil or handle out-of-bounds index
+	}
+
+	return rules[i]
 }
