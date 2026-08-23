@@ -20,7 +20,7 @@ func main() {
 		wt.engines = append(wt.engines, keyModifierLib.NewEngine())
 	}
 	for idx := range wt.engines {
-		if err := wt.engines[idx].Connect("dynamic key modifier" + strconv.Itoa(idx)); err != nil {
+		if err := wt.engines[idx].Connect("dynamic key modifier"+strconv.Itoa(idx), keyModifierLib.ParseModifyArgs(getRules(idx))); err != nil {
 			panic(err)
 		}
 
