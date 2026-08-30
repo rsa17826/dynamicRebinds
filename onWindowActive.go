@@ -14,15 +14,29 @@ func (wt *WindowTracker) windowChanged(window []string) {
 		return
 	}
 
-	// if strings.Contains(title, "http://127.0.0.1:1533/MathQuest/play.html") {
-	// 	wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs([]string{
-	// 		"--modify", "d", "turbo", "downfor", "1ms", "delay", "1ms",
-	// 	}))
-	// } else {
-	// 	wt.engines[0].SetMods(nil)
-	// }
-
-	wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs(getRules(0)))
+	println(title, class, title == "Wine")
+	// if strings.Contains(class, "mathbreakers.exe") {
+	if title == "Wine Desktop" {
+		wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs([]string{
+			"--modify", "space", "turbo", "downFor", "20ms", "delay", "20ms",
+			"--modify", "space", "maxPressTime", "600ms",
+			"--modify", "e", "replace", "r",
+			"--modify", "2", "replace", "6",
+			"--modify", "3", "replace", "6",
+			"--modify", "4", "replace", "j",
+			"--modify", "4", "turbo",
+			"--modify", "e", "turbo", "downFor", "5ms", "delay", "5ms",
+			"--modify", "e", "maxPressTime", "20ms",
+			"--modify", "r", "turbo", "downFor", "5ms", "delay", "5ms",
+			"--modify", "r", "maxPressTime", "20ms",
+			"--modify", "rbutton", "turbo", "downFor", "5ms", "delay", "5ms",
+			"--modify", "rbutton", "maxPressTime", "20ms",
+			"--modify", "f", "replace", "j",
+			"--modify", "rbutton", "replace", "r",
+		}))
+	} else {
+		wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs(getRules(0)))
+	}
 }
 
 func getRules(i int) []string {
