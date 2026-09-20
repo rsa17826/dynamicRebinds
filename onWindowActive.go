@@ -32,7 +32,17 @@ func (wt *WindowTracker) windowChanged(window []string) {
 			"--modify", "rbutton", "turbo", "downFor", "5ms", "delay", "5ms",
 			"--modify", "rbutton", "maxPressTime", "20ms",
 			"--modify", "f", "replace", "j",
-			"--modify", "rbutton", "replace", "r",
+			// "--modify", "rbutton", "replace", "1",
+		}))
+	} else if class == "steam_app_400" {
+		wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs([]string{
+			"--modify", "w", "replace", "l",
+			"--modify", "w", "replace", "w",
+			"--modify", "b", "replace", "v",
+			"--modify", "s", "replace", "s",
+			"--modify", "s", "replace", "l",
+			"--modify", "2", "replace", "3",
+			// "--modify", "rbutton", "replace", "1",
 		}))
 	} else {
 		wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs(getRules(0)))
