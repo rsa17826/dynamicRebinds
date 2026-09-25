@@ -38,6 +38,7 @@ func (wt *WindowTracker) windowChanged(window []string) {
 		wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs([]string{
 			"--modify", "w", "replace", "l",
 			"--modify", "w", "replace", "w",
+			"--modify", "w", "replace", "k",
 			"--modify", "b", "replace", "v",
 			"--modify", "s", "replace", "s",
 			"--modify", "s", "replace", "l",
