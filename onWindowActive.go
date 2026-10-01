@@ -16,9 +16,10 @@ func (wt *WindowTracker) windowChanged(window []string) {
 
 	println(title, class, title == "Wine")
 	// if strings.Contains(class, "mathbreakers.exe") {
-	if title == "Wine Desktop" {
+	// if title == "Wine Desktop" {
+	if class == "mathbreakers.exe" {
 		wt.engines[0].SetMods(keyModifierLib.ParseModifyArgs([]string{
-			"--modify", "space", "turbo", "downFor", "20ms", "delay", "20ms",
+			"--modify", "space", "turbo", "downFor", "15ms", "delay", "15ms",
 			"--modify", "space", "maxPressTime", "600ms",
 			"--modify", "e", "replace", "r",
 			"--modify", "2", "replace", "6",
